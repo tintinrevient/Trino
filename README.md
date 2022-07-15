@@ -19,7 +19,7 @@ wget https://repo.maven.apache.org/maven2/io/trino/trino-server/390/trino-server
 tar xvzf trino-server-390.tar.gz
 ```
 
-2. Check whether the `etc` folder contains the following configurations: 1) `jvm.config`; 2) `config.properties`; 3) `node.properties`; 4) `catalog/tpch.properties`. References are [Deploying Trino](https://trino.io/docs/current/installation/deployment.html) and [TPCH connector](https://trino.io/docs/current/connector/tpch.html).
+2. Check whether the `etc` folder contains the following configurations: `jvm.config`, `config.properties`, `node.properties` and `catalog/tpch.properties`. References are [Deploying Trino](https://trino.io/docs/current/installation/deployment.html) and [TPCH connector](https://trino.io/docs/current/connector/tpch.html).
 
 3. Check whether `java -version` is above `17`.
 
