@@ -45,7 +45,41 @@ trino> SHOW CATALOGS;
  system  
  tpch    
 (2 rows)
+
+trino> SHOW SCHEMAS FROM tpch;
+       Schema       
+--------------------
+ information_schema 
+ sf1                
+ sf100              
+ sf1000
+ 
+trino> SHOW TABLES FROM tpch.sf1;
+ Table   
+----------
+ customer 
+ lineitem 
+ nation   
+ orders  
+ 
+trino --catalog tpch --schema sf1 --execute "SELECT nationkey, name, regionkey FROM nation LIMIT 5"
+"0","ALGERIA","0"
+"1","ARGENTINA","1"
+"2","BRAZIL","1"
+"3","CANADA","1"
+"4","EGYPT","4"
 ```
+
+6. View the `trino` web UI from http://localhost:8080/ui/.
+
+## Architecture
+
+<p float="left">
+    <img src="pix/coordinator_and_worker.png" width="600" />
+</p>
+
+* All communication and data transfer between clients, coordinator, and workers uses `REST-based` interactions over `HTTP`/`HTTPS`.
+* The `discovery service` typically runs on the coordinator and allows workers to register to participate in the cluster.
 
 ## References
 
