@@ -86,3 +86,5 @@ trino --catalog tpch --schema sf1 --execute "SELECT nationkey, name, regionkey F
 * https://trino.io/docs/current/installation.html
 * https://mvnrepository.com/artifact/io.trino
 * https://github.com/trinodb/trino-python-client
+* https://www.reddit.com/r/datascience/comments/r6j0l5/im_looking_for_some_advice_on_whether_or_how_data/
+* https://www.youtube.com/watch?v=NoDF_siMRWg
