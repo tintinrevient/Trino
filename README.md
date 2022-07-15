@@ -3,7 +3,7 @@
 ## Overview
 
 <p float="left">
-    <img src="pix/trino_data_sources.png" width="380" />
+    <img src="pix/trino_data_sources.png" width="370" />
     <img src="pix/trino_use_cases.png" width="450" />
 </p>
 
