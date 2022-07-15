@@ -3,8 +3,8 @@
 ## Overview
 
 <p float="left">
-    <img src="pix/trino_data_sources.png" height="200" />
-    <img src="pix/trino_use_cases.png" height="200" />
+    <img src="pix/trino_data_sources.png" width="400" />
+    <img src="pix/trino_use_cases.png" width="400" />
 </p>
 
 * When organizations find the need to better understand and analyze data in their numerous RDBMSs, the creation and maintenance of `data warehouse` systems comes into play. Select data from various systems is then going through complex `ETL processes` and, often via long-running `batch jobs`, ends up in a tightly controlled, massive data warehouse.
