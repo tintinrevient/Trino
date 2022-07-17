@@ -90,7 +90,7 @@ Splits: 1 total, 1 done (100,00%)
 ## Architecture
 
 <p float="left">
-    <img src="pix/coordinator_and_worker.png" width="380" />
+    <img src="pix/coordinator_and_worker.png" width="370" />
     <img src="pix/trino_service_provider_interface_SPI.png" width="450" />
 </p>
 
