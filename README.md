@@ -90,8 +90,8 @@ Splits: 1 total, 1 done (100,00%)
 ## Architecture
 
 <p float="left">
-    <img src="pix/coordinator_and_worker.png" width="400" />
-    <img src="pix/trino_service_provider_interface_SPI.png" width="400" />
+    <img src="pix/coordinator_and_worker.png" width="380" />
+    <img src="pix/trino_service_provider_interface_SPI.png" width="450" />
 </p>
 
 * All communication and data transfer between clients, coordinator, and workers uses `REST-based` interactions over `HTTP`/`HTTPS`.
@@ -111,7 +111,7 @@ Splits: 1 total, 1 done (100,00%)
 * When accessing multiple tables from the same RDBMS, a `JDBC connection` is created and used for each table in the query.
 
 <p float="left">
-    <img src="pix/connector_postgresql.png" width="400" />
+    <img src="pix/connector_postgresql.png" width="450" />
 </p>
 
 1. Start the `postgres` server manually by `postgres -D /usr/local/var/postgres`.
