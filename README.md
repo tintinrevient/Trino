@@ -114,6 +114,7 @@ Splits: 1 total, 1 done (100,00%)
     <img src="pix/connector_postgresql.png" width="450" />
 </p>
 
+`Postgresql connector` can be tested with the following steps:
 1. Start the `postgres` server manually by `postgres -D /usr/local/var/postgres`.
 2. Configure the catalog for `postgresql` in [postgresql.properties](trino-server-390/etc/catalog/postgresql.properties), which sends the entire SQL query statement to `PostgrSQL` using `JDBC`. The PostgreSQL JDBC driver is contained within the PostgresSQL connector.
 3. Test in `Trino CLI` with the following statements:
@@ -145,14 +146,49 @@ trino> SELECT * FROM ratings;
 * `Hive runtime` translates the query into a set of `MapReduce` programs that can run on a `Hadoop` cluster. Over time, Hive has evolved to provide other `execution engines` such as Apache Tez and `Spark` that the query is translated to.
 * Trino and the `Trino Hive connector` do not use the `Hive runtime` at all. Trino is a replacement for it and is suitable for running interactive queries. It leverages the metadata in HMS and queries and processes the data stored in HDFS using `HDFS client` provided with the Hadoop project.
 
+`Hive connector` can be tested with the following steps:
 1. Start `HDFS`'s `NameNode` and `DataNode` by `start-dfs.sh`.
 2. Start `YARN`'s `ResourceManager` and `NodeManager` by `start-yarn.sh`.
 3. Start `Hive metastore` by `hive --service metastore`.
 4. Configure the catalog for `hive` in [hive.properties](trino-server-390/etc/catalog/hive.properties).
 5. Test in `Trino CLI` with the following statements:
 ```sql
-CREATE SCHEMA hive.web;
-CREATE SCHEMA hive.web WITH (location = 'hdfs://starburst-oreilly/web');
+trino
+trino> CREATE SCHEMA hive.web;
+trino> CREATE TABLE hive.web.page_views (user_id bigint);
+```
+
+6. The same output is achieved by `Hive CLI`:
+```sql
+hive
+hive> CREATE SCHEMA web;
+hive> CREATE TABLE web.page_views (user_id bigint);
+utils.FileUtils: Creating directory if it doesn't exist: hdfs://localhost:9000/user/hive/warehouse/web.db/page_views
+```
+
+7. The folders are created in `HDFS`:
+```bash
+$ hdfs dfs -chmod 777 /user/hive/warehouse/web.db
+$ hdfs dfs -ls /user/hive/warehouse/web.db
+drwxrwxrwx   - root supergroup          0 2022-07-17 17:50 /user/hive/warehouse/web.db/page_views
+```
+
+8. The partitioned table can be created as below:
+```sql
+trino> CREATE TABLE hive.web.page_views (user_id bigint, view_date date) WITH (partitioned_by = ARRAY['view_date']);
+trino> INSERT INTO hive.web.page_views (user_id, view_date) VALUES (cast(1 AS bigint), cast('2022-07-17' AS date));
+trino> INSERT INTO hive.web.page_views (user_id, view_date) VALUES (cast(1 AS bigint), cast('2022-07-18' AS date));
+```
+
+```bash
+$ hdfs dfs -ls /user/hive/warehouse/web.db/page_views
+drwxrwxrwx   - root supergroup          0 2022-07-17 18:08 /user/hive/warehouse/web.db/page_views/view_date=2022-07-17
+drwxrwxrwx   - root supergroup          0 2022-07-17 18:06 /user/hive/warehouse/web.db/page_views/view_date=2022-07-18
+```
+
+9. The data format can be specified as below:
+```sql
+trino> CREATE TABLE hive.web.page_views_ext (user_id bigint, view_date date) WITH (format = 'Parquet');
 ```
 
 ## References
@@ -162,3 +198,4 @@ CREATE SCHEMA hive.web WITH (location = 'hdfs://starburst-oreilly/web');
 * https://github.com/trinodb/trino-python-client
 * https://www.reddit.com/r/datascience/comments/r6j0l5/im_looking_for_some_advice_on_whether_or_how_data/
 * https://www.youtube.com/watch?v=NoDF_siMRWg
+* https://spark.apache.org/docs/3.0.0-preview/sql-ref-syntax-ddl-repair-table.html
