@@ -147,7 +147,7 @@ trino> SELECT * FROM ratings;
 * Trino and the `Trino Hive connector` do not use the `Hive runtime` at all. Trino is a replacement for it and is suitable for running interactive queries. It leverages the metadata in HMS and queries and processes the data stored in HDFS using `HDFS client` provided with the Hadoop project.
 
 <p float="left">
-    <img src="pix/presto_coordinator.png" width="450" />
+    <img src="pix/presto_coordinator.png" width="550" />
 </p>
 
 `Hive connector` can be tested with the following steps:
