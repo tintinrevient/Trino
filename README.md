@@ -146,6 +146,10 @@ trino> SELECT * FROM ratings;
 * `Hive runtime` translates the query into a set of `MapReduce` programs that can run on a `Hadoop` cluster. Over time, Hive has evolved to provide other `execution engines` such as Apache Tez and `Spark` that the query is translated to.
 * Trino and the `Trino Hive connector` do not use the `Hive runtime` at all. Trino is a replacement for it and is suitable for running interactive queries. It leverages the metadata in HMS and queries and processes the data stored in HDFS using `HDFS client` provided with the Hadoop project.
 
+<p float="left">
+    <img src="pix/presto_coordinator.png" width="450" />
+</p>
+
 `Hive connector` can be tested with the following steps:
 1. Start `HDFS`'s `NameNode` and `DataNode` by `start-dfs.sh`.
 2. Start `YARN`'s `ResourceManager` and `NodeManager` by `start-yarn.sh`.
@@ -191,6 +195,10 @@ drwxrwxrwx   - root supergroup          0 2022-07-17 18:06 /user/hive/warehouse/
 trino> CREATE TABLE hive.web.page_views_ext (user_id bigint, view_date date) WITH (format = 'Parquet');
 ```
 
+### HBase
+
+* The connection URL is a `JDBC connection` string to the database. It includes a list of the `Apache ZooKeeper nodes`, used for the discovery of the `HBase nodes`.
+
 ## References
 
 * https://trino.io/docs/current/installation.html
@@ -199,3 +207,4 @@ trino> CREATE TABLE hive.web.page_views_ext (user_id bigint, view_date date) WIT
 * https://www.reddit.com/r/datascience/comments/r6j0l5/im_looking_for_some_advice_on_whether_or_how_data/
 * https://www.youtube.com/watch?v=NoDF_siMRWg
 * https://spark.apache.org/docs/3.0.0-preview/sql-ref-syntax-ddl-repair-table.html
+* https://trino.io/docs/current/connector/phoenix.html
